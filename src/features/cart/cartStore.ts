@@ -7,9 +7,14 @@ export interface Product {
   price: number;
   image_url: string;
   category: string;
+  is_available?: boolean;
 }
 
-export interface CartItem extends Product {
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  image_url: string;
   quantity: number;
 }
 
@@ -25,7 +30,7 @@ interface CartStore {
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
   addItem: (product) => {
-    const items = get().items;
+    const { items } = get();
     const existingItem = items.find((i) => i.id === product.id);
     if (existingItem) {
       set({
@@ -34,19 +39,33 @@ export const useCartStore = create<CartStore>((set, get) => ({
         ),
       });
     } else {
-      set({ items: [...items, { ...product, quantity: 1 }] });
+      // Sanitize product data (only keep required fields for CartItem)
+      const newItem: CartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image_url: product.image_url,
+        quantity: 1,
+      };
+      set({ items: [...items, newItem] });
     }
   },
   removeItem: (productId) =>
     set((state) => ({
       items: state.items.filter((i) => i.id !== productId),
     })),
-  updateQuantity: (productId, quantity) =>
-    set((state) => ({
-      items: state.items.map((i) =>
-        i.id === productId ? { ...i, quantity } : i
-      ),
-    })),
+  updateQuantity: (productId, quantity) => {
+    if (quantity <= 0) {
+      // Automatically remove item if quantity drops to 0 or below
+      get().removeItem(productId);
+    } else {
+      set((state) => ({
+        items: state.items.map((i) =>
+          i.id === productId ? { ...i, quantity } : i
+        ),
+      }));
+    }
+  },
   clearCart: () => set({ items: [] }),
   getTotalPrice: () => {
     return get().items.reduce((total, item) => total + item.price * item.quantity, 0);

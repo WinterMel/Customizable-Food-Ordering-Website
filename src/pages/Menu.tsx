@@ -1,15 +1,73 @@
+import { useEffect, useState } from 'react';
+import { fetchProducts } from '../services/productService';
+import { Product } from '../features/cart/cartStore';
+import ProductCard from '../components/ui/ProductCard';
+
 export default function Menu() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState<string>('All Items');
+
+  useEffect(() => {
+    async function loadProducts() {
+      setLoading(true);
+      const data = await fetchProducts();
+      setProducts(data);
+      setLoading(false);
+    }
+    loadProducts();
+  }, []);
+
+  // Extract unique categories dynamically from products
+  const categories = ['All Items', ...Array.from(new Set(products.map(p => p.category)))];
+
+  const filteredProducts = activeCategory === 'All Items' 
+    ? products 
+    : products.filter(p => p.category === activeCategory);
+
   return (
     <div className="animate-in fade-in duration-500">
       <header className="mb-10 text-center">
         <h1 className="text-[48px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">Our Menu</h1>
-        <p className="text-muted text-[18px]">Browse our configurable catalog of products (Skeleton - Phase 2)</p>
+        <p className="text-muted text-[18px]">Browse our configurable catalog of products</p>
       </header>
       
-      <div className="bg-surface p-8 rounded-[16px] text-center text-muted border border-dashed border-edge">
-        <p className="text-[18px] font-semibold text-ink">Product Grid Placeholder</p>
-        <p className="text-[16px] mt-2">Data will be injected here during Phase 3 (Supabase Integration).</p>
+      {/* Category Pills */}
+      <div className="flex flex-wrap justify-center gap-3 mb-10">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-[20px] py-[8px] rounded-full text-[14px] font-medium border transition-all duration-200 cursor-pointer ${
+              activeCategory === cat 
+                ? 'bg-ink text-white border-ink' 
+                : 'bg-surface text-ink border-edge hover:border-muted'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
+
+      {loading ? (
+        <div className="text-center py-20 text-muted">
+          <div className="animate-pulse flex flex-col items-center gap-4">
+             <div className="w-8 h-8 border-4 border-edge border-t-brand rounded-full animate-spin"></div>
+             <p className="font-medium">Loading freshly prepared menu...</p>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+          {filteredProducts.length === 0 && (
+             <div className="col-span-full text-center py-12 text-muted bg-surface rounded-[16px] border border-edge">
+               No products found in this category.
+             </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
