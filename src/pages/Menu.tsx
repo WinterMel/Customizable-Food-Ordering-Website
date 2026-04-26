@@ -11,9 +11,16 @@ export default function Menu() {
   useEffect(() => {
     async function loadProducts() {
       setLoading(true);
-      const data = await fetchProducts();
-      setProducts(data);
-      setLoading(false);
+      try {
+        const data = await fetchProducts();
+        // Ensure data is always an array
+        setProducts(data || []);
+      } catch (error) {
+        console.error("Failed to load products in Menu component", error);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
     }
     loadProducts();
   }, []);

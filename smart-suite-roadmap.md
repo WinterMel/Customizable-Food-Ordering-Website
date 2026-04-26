@@ -37,18 +37,18 @@ A clean, modern, and highly reusable food ordering website template built with R
 - [x] Add item quantity modifiers (+/-) and remove functionality.
 - [x] Calculate and display total price based on `storeConfig.currency`.
 
-### ⏳ Phase 5: Checkout Logic
+### ✅ Phase 5: Checkout Logic
 
-- [ ] Build out the Checkout page form (Name, Phone, Address).
-- [ ] Implement form validation.
-- [ ] Display an order summary dynamically from the cart.
+- [x] Build out the Checkout page form (Name, Phone, Address).
+- [x] Implement form validation.
+- [x] Display an order summary dynamically from the cart.
 
-### ⏳ Phase 6: Save Orders to Database
+### ✅ Phase 6: Save Orders to Database
 
-- [ ] Define `orders` and `order_items` table schemas in Supabase.
-- [ ] Create service to insert new orders into Supabase from the Checkout form.
-- [ ] Route user to the Confirmation page upon successful insertion.
-- [ ] Clear the cart upon successful order submission.
+- [x] Define `orders` and `order_items` table schemas in Supabase.
+- [x] Create service to insert new orders into Supabase from the Checkout form.
+- [x] Route user to the Confirmation page upon successful insertion.
+- [x] Clear the cart upon successful order submission.
 
 ### ⏳ Phase 7: Config System Expansion
 

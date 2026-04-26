@@ -1,5 +1,23 @@
 # Development Log
 
+## 2026-04-25 - Phase 6: Save Orders to Database
+
+- **Database Schema**: Provided `supabase-schema-phase6.sql` to seamlessly create `orders` and `order_items` tables with proper relations and Row-Level Security (RLS) setup.
+- **Service Integration**: Built `src/services/orderService.ts` using the Supabase client to record payloads cleanly onto tables.
+- **Checkout Flow completion**:
+  - Wired `handleSubmit` in `Checkout.tsx` to `orderService`.
+  - Added visual loading states leveraging `lucide-react` `Loader2`.
+  - Inserted user-friendly error banners upon transaction failure.
+  - Cart intelligently clears leveraging Zustand's `clearCart` method prior to graceful routing to the Confirmation page.
+
+## 2026-04-24 - Phase 5: Checkout Logic
+
+- **Form Generation**: Replaced the static placeholder on `/checkout` with a functional, validated customer information form (Name, Phone, Address, Notes).
+- **Cart Aggregation**: Added an adjacent "Order Summary" module pinning the active cart items and syncing the `totalPrice` live from Zustand.
+- **Form Validation & Routing**: Tied form validation tightly to the submit button state alongside a gracefull redirect back to `/cart` if the page is visited with an empty cart.
+- **Payload Structuring**: Engineered the `handleSubmit` event to craft a cleanly normalized JSON payload combining user inputs and cart schema, specifically optimized for the future database insert, and logged it out for testing.
+- **UI Architecture**: Mirrored the 2-column layout strategy established in Phase 4 to maintain the strictly unified "Clean Minimalism" design language.
+
 ## 2026-04-23 - Phase 4: Cart System
 
 - **State Management (Zustand)**:

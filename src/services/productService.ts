@@ -43,17 +43,22 @@ export async function fetchProducts(): Promise<Product[]> {
     return MOCK_PRODUCTS;
   }
 
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .eq('is_available', true)
-    .order('category', { ascending: true })
-    .order('name', { ascending: true });
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('is_available', true)
+      .order('category', { ascending: true })
+      .order('name', { ascending: true });
 
-  if (error) {
-    console.error('Error fetching products:', error);
-    return MOCK_PRODUCTS; // Fallback to mock on error during setup
+    if (error) {
+      console.error('Supabase query error fetching products:', error);
+      return MOCK_PRODUCTS; // Fallback to mock on error during setup
+    }
+
+    return (data as Product[]) || [];
+  } catch (error) {
+    console.error('Exception thrown while fetching products:', error);
+    return MOCK_PRODUCTS;
   }
-
-  return data as Product[];
 }
