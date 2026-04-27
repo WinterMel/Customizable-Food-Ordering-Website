@@ -50,10 +50,11 @@ A clean, modern, and highly reusable food ordering website template built with R
 - [x] Route user to the Confirmation page upon successful insertion.
 - [x] Clear the cart upon successful order submission.
 
-### ⏳ Phase 7: Config System Expansion
+### ✅ Phase 7: Config System Expansion
 
-- [ ] Review hardcoded UI text and move it to `storeConfig.ts` if applicable.
-- [ ] Test template reusability with a completely different mock brand (e.g., Burger shop vs. Ice Cream shop).
+- [x] Review hardcoded UI text and move it to `storeConfig.ts` if applicable.
+- [x] Test template reusability with a completely different mock brand (e.g., Burger shop vs. Ice Cream shop).
+- [x] Implement multi-store architecture with shared tables (added `store_id`), allowing dynamic storefront switching via config.
 
 ### ⏳ Phase 8: UI Polish
 

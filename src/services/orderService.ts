@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { CartItem } from '../features/cart/cartStore';
+import { storeConfig } from '../config/storeConfig';
 
 export interface OrderPayload {
   customer: {
@@ -23,6 +24,7 @@ export async function createOrder(payload: OrderPayload): Promise<{ success: boo
     const { data: orderData, error: orderError } = await supabase
       .from('orders')
       .insert({
+        store_id: storeConfig.storeId,
         customer_name: payload.customer.name,
         customer_phone: payload.customer.phone,
         customer_address: payload.customer.address,

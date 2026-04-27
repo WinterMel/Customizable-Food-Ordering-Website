@@ -64,25 +64,25 @@ export default function Checkout() {
       clearCart();
       navigate('/confirmation');
     } else {
-      setSubmitError(result.error || 'Failed to place order. Please try again.');
+      setSubmitError(result.error || storeConfig.ui.checkout.validation.failedOrder);
     }
   };
 
   return (
     <div className="animate-in fade-in duration-500 max-w-[900px] mx-auto w-full">
       <header className="mb-10 lg:text-left text-center">
-        <h1 className="text-[48px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">Checkout</h1>
-        <p className="text-[18px] text-muted">Enter your details to finalize your order.</p>
+        <h1 className="text-[48px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">{storeConfig.ui.checkout.title}</h1>
+        <p className="text-[18px] text-muted">{storeConfig.ui.checkout.subtitle}</p>
       </header>
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Checkout Form */}
         <div className="flex-1">
           <form id="checkout-form" onSubmit={handleSubmit} className="bg-surface border border-edge rounded-[16px] p-6 lg:p-8 flex flex-col gap-5">
-            <h2 className="text-[20px] font-bold text-ink mb-2">Customer Information</h2>
+            <h2 className="text-[20px] font-bold text-ink mb-2">{storeConfig.ui.checkout.formTitle}</h2>
             
             <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-[14px] font-semibold text-ink">Full Name <span className="text-red-500">*</span></label>
+              <label htmlFor="name" className="text-[14px] font-semibold text-ink">{storeConfig.ui.checkout.labels.name} <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 id="name"
@@ -91,12 +91,12 @@ export default function Checkout() {
                 value={formData.name}
                 onChange={handleInputChange}
                 className="w-full bg-bg border border-edge rounded-lg px-4 py-3 text-[15px] focus:outline-none focus:border-ink transition-colors"
-                placeholder="John Doe"
+                placeholder={storeConfig.ui.checkout.placeholders.name}
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="phone" className="text-[14px] font-semibold text-ink">Phone Number <span className="text-red-500">*</span></label>
+              <label htmlFor="phone" className="text-[14px] font-semibold text-ink">{storeConfig.ui.checkout.labels.phone} <span className="text-red-500">*</span></label>
               <input
                 type="tel"
                 id="phone"
@@ -105,12 +105,12 @@ export default function Checkout() {
                 value={formData.phone}
                 onChange={handleInputChange}
                 className="w-full bg-bg border border-edge rounded-lg px-4 py-3 text-[15px] focus:outline-none focus:border-ink transition-colors"
-                placeholder="+1 (555) 000-0000"
+                placeholder={storeConfig.ui.checkout.placeholders.phone}
               />
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="address" className="text-[14px] font-semibold text-ink">Delivery Address <span className="text-red-500">*</span></label>
+              <label htmlFor="address" className="text-[14px] font-semibold text-ink">{storeConfig.ui.checkout.labels.address} <span className="text-red-500">*</span></label>
               <textarea
                 id="address"
                 name="address"
@@ -119,7 +119,7 @@ export default function Checkout() {
                 value={formData.address}
                 onChange={handleInputChange}
                 className="w-full bg-bg border border-edge rounded-lg px-4 py-3 text-[15px] focus:outline-none focus:border-ink transition-colors resize-none"
-                placeholder="123 Main St, Apt 4B, City"
+                placeholder={storeConfig.ui.checkout.placeholders.address}
               />
             </div>
 
@@ -128,7 +128,7 @@ export default function Checkout() {
             <h2 className="text-[20px] font-bold text-ink mb-2">Additional Instructions</h2>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="notes" className="text-[14px] font-semibold text-ink">Order Notes (Optional)</label>
+              <label htmlFor="notes" className="text-[14px] font-semibold text-ink">{storeConfig.ui.checkout.labels.notes}</label>
               <textarea
                 id="notes"
                 name="notes"
@@ -136,7 +136,7 @@ export default function Checkout() {
                 value={formData.notes}
                 onChange={handleInputChange}
                 className="w-full bg-bg border border-edge rounded-lg px-4 py-3 text-[15px] focus:outline-none focus:border-ink transition-colors resize-none"
-                placeholder="Any special requests? (e.g. no pickles, extra cheese, less sugar)"
+                placeholder={storeConfig.ui.checkout.placeholders.notes}
               />
             </div>
           </form>
@@ -145,7 +145,7 @@ export default function Checkout() {
         {/* Order Summary Module */}
         <div className="w-full md:w-[360px] flex-shrink-0">
           <div className="bg-surface border border-edge rounded-[16px] p-6 sticky top-24">
-            <h2 className="text-[20px] font-bold text-ink mb-6">Order Summary</h2>
+            <h2 className="text-[20px] font-bold text-ink mb-6">{storeConfig.ui.cart.summaryTitle}</h2>
             
             <div className="flex flex-col gap-4 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
               {items.map(item => (
@@ -155,7 +155,7 @@ export default function Checkout() {
                     <span className="text-muted line-clamp-2">{item.name}</span>
                   </div>
                   <span className="font-semibold text-ink flex-shrink-0">
-                    {storeConfig.currency}{(item.price * item.quantity).toFixed(2)}
+                    {storeConfig.currency.symbol}{(item.price * item.quantity).toFixed(2)}
                   </span>
                 </div>
               ))}
@@ -165,8 +165,8 @@ export default function Checkout() {
 
             <div className="flex flex-col gap-3 mb-8">
               <div className="flex justify-between text-[18px] font-bold text-ink">
-                <span>Total</span>
-                <span className="text-brand">{storeConfig.currency}{totalPrice.toFixed(2)}</span>
+                <span>{storeConfig.ui.cart.total}</span>
+                <span className="text-brand">{storeConfig.currency.symbol}{totalPrice.toFixed(2)}</span>
               </div>
             </div>
 
@@ -186,10 +186,10 @@ export default function Checkout() {
                   : 'bg-edge text-muted cursor-not-allowed opacity-70'
               }`}
             >
-              {isSubmitting ? 'Processing Order...' : 'Confirm Order'}
+              {isSubmitting ? storeConfig.ui.buttons.processing : storeConfig.ui.buttons.confirmOrder}
             </button>
             {!isFormValid && (
-              <p className="text-center text-xs text-muted mt-3">Please fill out all required fields to proceed.</p>
+              <p className="text-center text-xs text-muted mt-3">{storeConfig.ui.checkout.validation.required}</p>
             )}
           </div>
         </div>

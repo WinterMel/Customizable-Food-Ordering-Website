@@ -16,7 +16,7 @@ export default function Home() {
           to="/menu"
           className="inline-block px-8 py-3 rounded-full text-[14px] font-semibold transition-all bg-ink text-white hover:opacity-90"
         >
-          Explore Our Menu
+          {storeConfig.ui.home.exploreMenu}
         </Link>
         <div className="mt-12 max-w-[900px] mx-auto">
           <img
@@ -29,28 +29,28 @@ export default function Home() {
 
       {/* Overview Section Placeholder */}
       <section className="text-center max-w-[900px] mx-auto">
-        <h2 className="text-[28px] font-bold text-ink mb-8 tracking-tight">Why order from us?</h2>
+        <h2 className="text-[28px] font-bold text-ink mb-8 tracking-tight">{storeConfig.ui.home.whyOrderTitle}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-surface p-6 rounded-[16px] border border-edge flex flex-col gap-4 text-left">
             <div className="text-[18px] font-semibold text-ink flex items-center gap-3">
               <span className="flex items-center justify-center w-8 h-8 rounded-full bg-bg border border-edge text-[14px]">1</span>
-              Browse the Menu
+              {storeConfig.ui.home.step1Title}
             </div>
-            <p className="text-muted text-[16px] m-0">Pick out your favorites from our configurable catalog.</p>
+            <p className="text-muted text-[16px] m-0">{storeConfig.ui.home.step1Desc}</p>
           </div>
           <div className="bg-surface p-6 rounded-[16px] border border-edge flex flex-col gap-4 text-left">
             <div className="text-[18px] font-semibold text-ink flex items-center gap-3">
               <span className="flex items-center justify-center w-8 h-8 rounded-full bg-bg border border-edge text-[14px]">2</span>
-              Fast Checkout
+              {storeConfig.ui.home.step2Title}
             </div>
-            <p className="text-muted text-[16px] m-0">Seamlessly add details—no complicated accounts required.</p>
+            <p className="text-muted text-[16px] m-0">{storeConfig.ui.home.step2Desc}</p>
           </div>
           <div className="bg-surface p-6 rounded-[16px] border border-edge flex flex-col gap-4 text-left">
             <div className="text-[18px] font-semibold text-ink flex items-center gap-3">
               <span className="flex items-center justify-center w-8 h-8 rounded-full bg-bg border border-edge text-[14px]">3</span>
-              Enjoy
+              {storeConfig.ui.home.step3Title}
             </div>
-            <p className="text-muted text-[16px] m-0">Delicious items prepared securely and reliably for you.</p>
+            <p className="text-muted text-[16px] m-0">{storeConfig.ui.home.step3Desc}</p>
           </div>
         </div>
       </section>

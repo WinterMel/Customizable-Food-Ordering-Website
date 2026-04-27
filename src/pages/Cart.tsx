@@ -14,13 +14,13 @@ export default function Cart() {
         <div className="w-24 h-24 bg-surface border border-edge rounded-full flex items-center justify-center mx-auto mb-6 text-muted">
           <ShoppingBag size={48} />
         </div>
-        <h1 className="text-[32px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">Your Cart is Empty</h1>
-        <p className="text-[18px] text-muted mb-8">Looks like you haven't added any items yet.</p>
+        <h1 className="text-[32px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">{storeConfig.ui.cart.emptyTitle}</h1>
+        <p className="text-[18px] text-muted mb-8">{storeConfig.ui.cart.emptySubtitle}</p>
         <Link
           to="/menu"
           className="inline-block px-8 py-3 rounded-full text-[14px] font-medium transition-all bg-ink text-white hover:opacity-90"
         >
-          Browse Menu
+          {storeConfig.ui.buttons.browseMenu}
         </Link>
       </div>
     );
@@ -29,8 +29,8 @@ export default function Cart() {
   return (
     <div className="animate-in fade-in duration-500 max-w-[900px] mx-auto w-full">
       <header className="mb-10 lg:text-left text-center">
-        <h1 className="text-[48px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">Your Cart</h1>
-        <p className="text-[18px] text-muted">Review your items before checkout</p>
+        <h1 className="text-[48px] font-[800] tracking-[-0.04em] leading-[1.1] mb-4 text-ink">{storeConfig.ui.cart.title}</h1>
+        <p className="text-[18px] text-muted">{storeConfig.ui.cart.subtitle}</p>
       </header>
       
       <div className="flex flex-col md:flex-row gap-8">
@@ -49,10 +49,10 @@ export default function Cart() {
               <div className="flex-1 min-w-0 flex flex-col justify-center">
                 <h3 className="text-[18px] font-semibold text-ink line-clamp-1">{item.name}</h3>
                 <p className="text-[16px] text-brand font-bold mt-1">
-                  {storeConfig.currency}{(item.price * item.quantity).toFixed(2)}
+                  {storeConfig.currency.symbol}{(item.price * item.quantity).toFixed(2)}
                 </p>
                 <div className="text-[13px] text-muted mt-1">
-                  {storeConfig.currency}{item.price.toFixed(2)} each
+                  {storeConfig.currency.symbol}{item.price.toFixed(2)} {storeConfig.ui.cart.each}
                 </div>
               </div>
 
@@ -91,21 +91,21 @@ export default function Cart() {
         {/* Order Summary */}
         <div className="w-full md:w-[320px] flex-shrink-0">
           <div className="bg-surface border border-edge rounded-[16px] p-6 sticky top-24">
-            <h2 className="text-[20px] font-bold text-ink mb-6">Order Summary</h2>
+            <h2 className="text-[20px] font-bold text-ink mb-6">{storeConfig.ui.cart.summaryTitle}</h2>
             
             <div className="flex flex-col gap-4 mb-6">
               <div className="flex justify-between text-[16px] text-muted">
-                <span>Subtotal</span>
-                <span>{storeConfig.currency}{totalPrice.toFixed(2)}</span>
+                <span>{storeConfig.ui.cart.subtotal}</span>
+                <span>{storeConfig.currency.symbol}{totalPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-[16px] text-muted">
-                <span>Estimated Tax</span>
-                <span>Calculated at checkout</span>
+                <span>{storeConfig.ui.cart.estimatedTax}</span>
+                <span>{storeConfig.ui.cart.taxCalculatedAtCheckout}</span>
               </div>
               <div className="h-[1px] bg-edge w-full my-2"></div>
               <div className="flex justify-between text-[18px] font-bold text-ink">
-                <span>Total</span>
-                <span className="text-brand">{storeConfig.currency}{totalPrice.toFixed(2)}</span>
+                <span>{storeConfig.ui.cart.total}</span>
+                <span className="text-brand">{storeConfig.currency.symbol}{totalPrice.toFixed(2)}</span>
               </div>
             </div>
 
@@ -113,7 +113,7 @@ export default function Cart() {
               to="/checkout"
               className="w-full block text-center py-3 rounded-full text-[15px] font-semibold transition-all bg-ink text-white hover:opacity-90 active:scale-[0.98]"
             >
-              Proceed to Checkout
+              {storeConfig.ui.buttons.proceedToCheckout}
             </Link>
           </div>
         </div>

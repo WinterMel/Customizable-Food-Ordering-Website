@@ -19,11 +19,11 @@ export default function Navbar() {
         {/* Navigation - Desktop */}
         <div className="hidden md:flex items-center gap-[32px]">
           <Link to="/menu" className="text-[14px] font-medium text-muted hover:text-ink transition-colors">
-            Menu
+            {storeConfig.ui.nav.menu}
           </Link>
           <Link to="/cart" className="bg-ink text-white px-[18px] py-[10px] rounded-full text-[13px] flex items-center gap-2 group transition-colors hover:opacity-90">
             <ShoppingCart className="w-4 h-4" />
-            <span>Cart</span>
+            <span>{storeConfig.ui.nav.cart}</span>
             {totalItems > 0 && (
               <span className="flex items-center">
                 <span className="opacity-50 mx-2">|</span>

@@ -37,7 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </p>
         </div>
         <div className="text-[16px] text-brand font-bold mt-3">
-          {storeConfig.currency}{product.price.toFixed(2)}
+          {storeConfig.currency.symbol}{product.price.toFixed(2)}
         </div>
       </div>
       
@@ -45,7 +45,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         onClick={handleAddToCart}
         className="w-full p-3 border border-ink bg-transparent rounded-[8px] font-semibold cursor-pointer transition-all duration-200 hover:bg-ink hover:text-white mt-auto active:scale-[0.98]"
       >
-        Add to Cart
+        {storeConfig.ui.buttons.addToCart}
       </button>
     </div>
   );
